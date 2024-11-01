@@ -1,0 +1,45 @@
+# Фокеева Инна, 23-я когорта — Финальный проект. Инженер по тестированию расширенный
+# Задание 1
+# Cписок логинов курьеров с количеством их заказов в статусе «В доставке» (поле inDelivery = true). 
+
+
+scooter_rent=# SELECT c.login, COUNT(o.*) AS order_count FROM "Couriers" c JOIN "Orders" o ON c.id = o."courierId" WHERE o."inDelivery" = true GROUP BY c.login;
+ login | order_count 
+-------+-------------
+ Popit |           8
+(1 row)
+
+scooter_rent=# SELECT c.login, COUNT(o.*) AS order_count FROM "Couriers" c JOIN "Orders" o ON c.id = o."courierId" WHERE o."inDelivery" = true GROUP BY c.login;
+ login | order_count 
+-------+-------------
+ Popit |           8
+ ninja |          14
+(2 rows)
+
+scooter_rent=# SELECT c.login, COUNT(o.*) AS order_count FROM "Couriers" c JOIN "Orders" o ON c.id = o."courierId" WHERE o."inDelivery" = true GROUP BY c.login;
+ login | order_count 
+-------+-------------
+ ninja |          14
+ Popit |           8
+ Inna  |          14
+(3 rows)
+
+# Задание 2
+# Трекеры заказов и их статусы
+
+scooter_rent=# SELECT "Orders"."track", CASE WHEN "Orders"."finished" = True THEN 2 WHEN "Orders"."cancelled" = True THEN -1 WHEN "Orders"."inDelivery" = True THEN 1 ELSE 0 END as expectedStatus FROM "Orders";
+ track  | expectedstatus 
+--------+----------------
+ 693787 |              0
+ 473751 |              1
+ 521726 |              1
+ 223786 |              1
+ 223786 |              1
+ 508045 |              1
+ 473751 |              2
+ 521726 |              2
+ 508045 |              2
+ 289103 |             -1
+ 642429 |             -1
+ 327922 |             -1
+(12 rows)
